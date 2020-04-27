@@ -1,0 +1,244 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+        <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,500" rel="stylesheet">
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'portfolio/css/style.css' %}">
+        <link rel="stylesheet" href="{% static 'portfolio/fontawesome-free-5.13.0-web/css/fontawesome.min.css' %}">
+        <link rel="stylesheet" href="{% static 'portfolio/fontawesome-free-5.13.0-web/css/all.css' %}">
+
+        <script src="{% static 'portfolio/js/jquery-3.4.1.min.js' %}"></script>
+        <script src="{% static 'portfolio/js/vivus.js' %}"></script>
+        <script src="{% static 'portfolio/js/svg/svg.js' %}"></script>
+
+        <title>Andrew Bottomley | Developer Portfolio</title>
+
+        <script>
+            // Function for filling in "Andrew Bottomley" SVG on homepage
+            function fillName() {
+                header__name = document.getElementById('header__name');
+                svgObj = header__name.getElementsByTagName('svg')[0];
+                path = svgObj.getElementsByTagName('path')[0];
+                SVG(path).animate(4000,300,'now').attr({opacity: 1});
+            };
+            
+            // Class for creating a new SVG histogram
+            class SVGHistogram {
+                constructor(jsonData, divID) {
+                    this.data = jsonData;
+                    this.ID = divID;
+                }
+                draw() {
+                    var divObj = document.getElementById(this.ID);
+                    $(this.ID).load("{% url portfolio.views.skillsData %}");
+                }
+            }
+            // Class for loading JSON data into Skills histogram
+            document.addEventListener('DOMContentLoaded', function(event) {
+                skillsHistogram = new SVGHistogram("hello world","skills__histogram");
+                skillsHistogram.draw();
+            })
+        </script>
+    </head>
+    <body>
+        <nav class="navbar" id="navbar">
+            <label for="toggle" class="navbar__hamburger">&#9776;</label>
+            <input type="checkbox" class="navbar__toggle" id="toggle">
+            <ul class="navbar__list">
+                <li class="navbar__item">
+                    <a href="#section-about" class="navbar__link">About</a>
+                </li>
+                <li class="navbar__item">
+                    <a href="#section-skills" class="navbar__link">Skills</a>
+                </li>
+                <li class="navbar__item">
+                    <a href="#section-work" class="navbar__link">Projects</a>
+                </li>
+                <li class="navbar__item">
+                    <a href="#section-contact" class="navbar__link">Contact</a>
+                </li>
+            </ul>
+        </nav>
+    
+        <header class="header" id="header">
+            <!-- <object class="header__name" id="header__name" type="image/svg+xml" data="{% static 'portfolio/img/name-outline-w.svg' %}"></object> -->
+            <div id='header__name'></div>
+            <div class='header__text'>Software Developer <br> Data Scientist <br> Automation Engineer <br> Energy Analyst </div>
+            </div>
+            <script>
+                new Vivus('header__name', { type: 'sync', duration: 1000, file: "{% static 'portfolio/img/name-outline-b.svg' %}" , onReady: fillName}, fillName);
+            </script>
+        </header>
+
+        <section class="section-about" id="section-about">
+            <div class="u-center-text u-margin-bottom-large u-margin-top-medium">
+                <h2 class="heading-secondary heading-secondary--dark about-heading">
+                    About
+                </h2>
+                <div class="heading-hr about-hr"></div>
+            </div>
+            <div class="about">
+                <div class="about__picture">
+                    <picture class="about__img">
+                        <source srcset="/static/portfolio/img/andrew-headshot-m.jpg" media="(max-width: 37.5em)"> 
+                        <img src="/static/portfolio/img/andrew-headshot-m.jpg" alt="Andrew" class="about__img">
+                    </picture>
+                </div>
+                <div class="about__vr"></div>
+                <div class="about__text">
+                    <p class="paragraph">My inherent innovative streak and thirst for learning has me undertaking new software passion projects on a regular basis. I like pursuing ideas that can change the world. Currently I work as a Mechanical Engineer focusing on the optimization of buildings' energy and water utilization. I am always open to new opportunities and love to learn as I am quick to take on new knowledge. In my current role, due to my versatility with programming, I have enjoyed many opportuntities to lead proof-of-concepts, and be part of scrum teams for innovation challenges and hackathons.</p>  
+                    <a href="#section-skills" class="btn-text u-margin-right-medium">My Skills &rarr;</a>         
+                    <a href="pdf/jackdoyle-cv.pdf" target="_blank" class="btn-text">Download My Resume &rarr;</a>         
+                </div>
+            </div>
+        </section>
+    
+        <section class="section-skills" id="section-skills">
+            <div class="u-center-text u-margin-bottom-large u-margin-top-medium">
+                <h2 class="heading-secondary heading-secondary--light skills-heading">
+                    Skills
+                </h2>
+            </div>
+            <div class="skills">
+                <div class="skills__text">
+                    <p class="paragraphh">My skillset is varied across a broad spectrum of fields, which is a consequence of my diverse interests and potential.</p>
+                    <div class="skills__histogram" id="skills__histogram"></div>
+                </div>
+            </div>
+
+        </section>
+
+        <section class="section-projects" id="section-projects">
+            <div class="u-center-text u-margin-top-medium u-margin-bottom-large">
+                <h2 class="heading-secondary heading-secondary--dark work-heading">
+                    My Work Experience
+                </h2>
+                <div class="heading-hr work-hr"></div>
+            </div>
+            <div class="work-experience">
+                <div class="work-experience__description">
+                    <h3 class="heading-quaternary heading-quaternary--dark u-center-text">Full Stack Developer - Circular Wave</h3>
+                    <h4 class="heading-quinary heading-quinary--dark u-center-text">September 2018 - present</h3>
+                        <div class="heading-hr--small u-margin-bottom-medium"></div>
+                    <p class="work-experience__text u-margin-bottom-small">
+                        As part of an agile team, we have developed a React web application for NHS trusts to manage their workforce. Admins can share available ad hoc shifts through the web app, and healthcare professionals can apply for work and manage their timesheets through our React Native mobile app. Our backend consists of NodeJS microservices, and we use PostgreSQL and Firebase for our database.
+                    </p>
+                </div>
+                <div class="work-experience__pictures">
+                    <img src="img/circular_wave_app.png" alt="Forkify Screen Shot 1" class="work-experience__img-portrait--3">
+                    <img src="img/circular_wave_web_app.png" alt="Forkify Screen Shot 2" class="work-experience__img-portrait--4"> 
+                </div>
+                <div class="work-experience__content">
+                    <p class="work-experience__text u-margin-bottom-small">My main responsibilities and achievements - </p>
+                    <ul class="skill__list u-margin-bottom-medium">
+                        <li>Develop features appropriate to scale, extensibility, and scope of the problem</li>
+                        <li>Contribute towards a database migration from NoSQL to SQL</li>
+                        <li>Adhere to the DRY principle whilst maintaining a very large codebase on both frontend and backend</li>
+                        <li>Implement technical planning on upcoming development tasks. This is to assess risks and consider how any changes will affect our application</li>
+                        <li>Follow Scrum methodologies, such as regular refinement meetings and two week sprints</li>
+                    </ul>
+                    
+                    <p class="work-experience__text u-margin-bottom-small">Technologies and tools include - </p>
+                    <ul class="skill__list u-margin-bottom-medium"">
+                        <li>ReactJS configured by Webpack for our web application. React Native for our mobile app. Redux for state management</li>
+                        <li>NodeJS microservices on the backend serving RESTful APIs</li>
+                        <li>PostgreSQL and Firebase databases</li>
+                        <li>Git/GitHub version control</li>
+                        <li>Jest test suite for unit testing</li>
+                        <li>Jira management tool to track development team work</li>
+                    </ul>
+                    <div class="skill__pill-list">
+                        <div class="skill__pill-box">#JavaScript</div>
+                        <div class="skill__pill-box">#ReactJS</div>
+                        <div class="skill__pill-box">#React Native</div>
+                        <div class="skill__pill-box">#NodeJS</div>
+                        <div class="skill__pill-box">#ExpressJS</div>
+                        <div class="skill__pill-box">#PostgreSQL</div>
+                        <div class="skill__pill-box">#Firebase</div>
+                        <div class="skill__pill-box">#Jest</div>
+                        <div class="skill__pill-box">#CSS3</div>
+                        <div class="skill__pill-box">#Webpack</div>
+                        <div class="skill__pill-box">#Git/GitHub</div>
+                    </div> 
+                </div>    
+            </div>
+            <div class="project">
+                <div class="project__pictures">
+                    <img src="img/new_sneakers_sick_fits_large.png" alt="Sick Fits Screen Shot 1" class="project__img-landscape--1">
+                    <img src="img/main_page_sick_fits_large.png" alt="Sick Fits Screen Shot 2" class="project__img-landscape--2">  
+                </div>
+                <div class="project__content">
+                    <h3 class="heading-tertiary heading-tertiary--dark u-center-text">Sick Fits</h3>
+                    <div class="heading-hr--small u-margin-bottom-medium"></div>
+                    <p class="project__text u-margin-bottom-small">Sick Fits is a fictional online store built with ReactJS and GraphQL. The full stack application is built with a NodeJS backend alongside a GraphQL Yoga server, which handles all of my custom server side logic, such as credit card transactions via Stripe, password reset, permissions management and more. The backend also interfaces with Prisma, which is a powerful ORM library that sits on top of the database. GraphQL has been a buzz lately and I was keen to give it a try. It's essentially an alternative to the way in which REST APIs work. In contrast to hitting an API endpoint, where you just accept the data that's returned to you, GraphQL allows you to write queries on the client side and it gives you the freedom to specify the exact data in the shape that you want returned from the server. I used Jest for testing the key React components and GraphQL queries. Please refer to my GitHub repo for more information about my approach and the technologies used.</p>
+                    <a href="https://sickfits-jack-react-prod.herokuapp.com/" target="_blank" class="btn-text u-margin-right-medium u-margin-top-small">View App &rarr;</a> 
+                    <a href="https://github.com/dj9aj/Sick-Fits-Frontend" target="_blank" class="btn-text u-margin-top-small">View Code &rarr;</a> 
+                </div>       
+            </div>
+            <div class="project">
+                <div class="project__pictures">
+                    <img src="img/forkify-1-small.png" alt="Forkify Screen Shot 1" class="project__img-portrait--1">
+                    <img src="img/forkify-2-small.png" alt="Forkify Screen Shot 2" class="project__img-portrait--2">  
+                </div>
+                <div class="project__content">
+                    <h3 class="heading-tertiary heading-tertiary--dark u-center-text">Forkify</h3>
+                    <div class="heading-hr--small u-margin-bottom-medium"></div>
+                    <p class="project__text u-margin-bottom-small">Forkify is a vanilla JavaScript application that interacts with the food2fork API to fetch and display recipe food data. This app uses modern JavaScript tools, such as Webpack to bundle the modules, and Babel to convert ES6, ES7 and ES8 back to ES5. The user can search for a specific recipe, and add ingredients to a shopping list or save to a favourites list via local storage. I created a simple Express server in order to host the app via Heroku. Please refer to my GitHub repo for more information about my additional and re-factored features.</p>
+                    <a href="https://shielded-fjord-62551.herokuapp.com/" target="_blank" class="btn-text u-margin-right-medium u-margin-top-small">View App &rarr;</a> 
+                    <a href="https://github.com/dj9aj/Forkify" target="_blank" class="btn-text u-margin-top-small">View Code &rarr;</a>
+                </div>       
+            </div>
+            <div class="project">
+                <div class="project__pictures">
+                    <img src="img/my-budget-pal-1-large.png" alt="My Budget Pal Screen Shot 1" class="project__img-landscape--1">
+                    <img src="img/my-budget-pal-2-small.png" alt="My Budget Pal Screen Shot 2" class="project__img-landscape--2">  
+                </div>
+                <div class="project__content">
+                    <h3 class="heading-tertiary heading-tertiary--dark u-center-text">My Budget Pal</h3>
+                    <div class="heading-hr--small u-margin-bottom-medium"></div>
+                    <p class="project__text u-margin-bottom-small">I created a full-stack application, which allows a user to create an account and log income/expense receipts. The user can categorise receipts and monitor the current budget available. The Express app includes a MongoDB database via Mongoose and user authentication via PassportJS. Receipts can also be edited and deleted by the user. The mobile responsive app is styled with CSS Flexbox.</p>
+                    <a href="https://mysterious-lowlands-58174.herokuapp.com/" target="_blank" class="btn-text u-margin-right-medium u-margin-top-small">View App &rarr;</a> 
+                    <a href="https://github.com/dj9aj/My-Budget-Pal" target="_blank" class="btn-text u-margin-top-small">View Code &rarr;</a> 
+                </div>       
+            </div>
+            <div class="project">
+                <div class="project__pictures">
+                    <img src="img/natours-2-small.png" alt="Natours Screen Shot 1" class="project__img-landscape--1">
+                    <img src="img/natours-1-small.png" alt="Natours Screen Shot 2" class="project__img-landscape--2">  
+                </div>
+                <div class="project__content">
+                    <h3 class="heading-tertiary headin  g-tertiary--dark u-center-text">Natours</h3>
+                    <div class="heading-hr--small u-margin-bottom-medium"></div>
+                    <p class="project__text u-margin-bottom-small">Natours is a landing page for a fictional company that offers tours for the outdoors. This app was built using pure CSS, including many modern and up to date features. The layout is fully responsive for multiple screen widths. This is my first project using Sass, which is a great extension of CSS that adds power and elegence to the language. The classes are named using the BEM system. I decided to refactor the original code by adding additional variables, mixins etc. This has made the code more maintainable not only for this project, but also re-usable for future Sass projects.</p>
+                    <a href="https://pure-lowlands-81406.herokuapp.com/" target="_blank" class="btn-text u-margin-right-medium u-margin-top-small">View App &rarr;</a> 
+                    <a href="https://github.com/dj9aj/Natours-Landing-Page" target="_blank" class="btn-text u-margin-top-small">View Code &rarr;</a> 
+                </div>       
+            </div>
+        </section>
+
+        <section class="section-contact" id="section-contact">
+            <div class="u-center-text u-margin-bottom-medium">
+                <h2 class="heading-secondary heading-secondary--light contact-heading">
+                    Get in touch
+                </h2>
+                <div class="heading-hr contact-hr"></div>
+            </div>
+            <div class="contact">
+                <p class="contact__text u-center-text">If you’d like to find out more about me and what I can offer, please get in touch via any of the links below.</p>
+                <h3 class="heading-tertiary heading-tertiary--light u-center-text u-margin-top-medium">Social Links</h3>
+                <ul class="contact__list u-margin-top-small u-margin-bottom-small">
+                    <li class="contact__item"><a href="mailto:jackdo@hotmail.co.uk" class="contact__link fas fa-envelope"></a></li>
+                    <li class="contact__item"><a href="https://github.com/dj9aj" target="_blank" class="contact__link fab fa-github"></a></li>
+                    <li class="contact__item"><a href="https://www.linkedin.com/in/jack-doyle-068160151/" target="_blank" class="contact__link fab fa-linkedin"></a></li>
+                    <li class="contact__item"><a href="https://twitter.com/jackdoyle1987" target="_blank" class="contact__link fab fa-twitter"></a></li>
+                </ul>
+            </div>
+        </section> 
+        <script src="js/portfolio.js"></script>    
+    </body>
+</html>
