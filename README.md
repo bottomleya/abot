@@ -1,2 +1,4 @@
-# abot
- My Portfolio Homepage
+# My Portfolio Homepage
+Configured with Django Web Framework.
+
+
